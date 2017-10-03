@@ -1,0 +1,71 @@
+
+<ion-header>
+  <ion-navbar color="pagetitle">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Login</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <div padding>
+    <img src="../../assets/image/avatar.png" id="avatar"/>
+  </div>
+
+  <form [formGroup]="loginForm" (submit)="signInUser()" novalidate>
+    <ion-list>
+
+      <ion-item>
+        <ion-icon name="mail" item-start></ion-icon>
+        <ion-input #email
+                   formControlName="email"
+                   type="email"
+                   placeholder="Your email address"
+                  [class.invalid]="!loginForm.controls.email.valid
+                  && loginForm.controls.email.dirty">
+        </ion-input>
+      </ion-item>
+
+      <ion-item class="error-message"
+                *ngIf="!loginForm.controls.email.valid
+                && loginForm.controls.email.dirty">
+        <p>Please enter a valid email.</p>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon name="lock" item-start></ion-icon>
+        <ion-input #password
+                   formControlName="password"
+                   type="password"
+                   placeholder="Your password"
+                   [class.invalid]="!loginForm.controls.password.valid
+                   && loginForm.controls.password.dirty">
+        </ion-input>
+      </ion-item>
+
+      <ion-item class="error-message"
+                *ngIf="!loginForm.controls.password.valid
+                && loginForm.controls.password.dirty">
+        <p>Your password needs more than 6 characters.</p>
+      </ion-item>
+    </ion-list>
+
+    <div class="spacer" style="height:40px;" id="login-spacer1"></div>
+
+    <button ion-button color="stable" block type="submit">Log in</button>
+
+    <button id="login-button2" (click)="registerUser()" ion-button clear color="positive" block href-inappbrowser="/signup">
+      Or create an account
+    </button>
+
+    <button ion-button block clear (click)="goToResetPassword()">
+      I forgot my password 🙁
+    </button>
+
+  </form>
+
+  <button ion-button block  outline (click)="signInWithFacebook()">Facebook</button>
+
+</ion-content>

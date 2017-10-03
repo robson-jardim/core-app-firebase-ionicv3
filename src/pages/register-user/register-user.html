@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>New User</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+
+  <form id="login-form1">
+
+    <div class="spacer" style="height:80px;" id="login-spacer1"></div>
+
+    <ion-list>
+      <ion-item>
+        <ion-icon name="mail" item-start></ion-icon>
+        <ion-input type="email" placeholder="e-mail" [(ngModel)]="this.email" name="email"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-icon name="lock" item-start></ion-icon>
+        <ion-input type="password" placeholder="password" [(ngModel)]="this.password" name="password"></ion-input>
+      </ion-item>
+    </ion-list>
+
+    <div class="spacer" style="height:40px;" id="login-spacer1"></div>
+
+    <button id="login-button1" (click)="registerUser()" ion-button color="stable" block>Create User</button>
+
+  </form>
+
+</ion-content>

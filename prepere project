@@ -1,0 +1,13 @@
+
+## Cordova plugin Firebase
+ionic cordova plugin  add cordova-plugin-firebase@0.1.24 --save
+
+
+## Download GoogleService-Info.plist from Firebase
+
+
+## Configure Hook para copiar GoogleService-Info.plist para o ios project
+
+
+## Install agungularfire
+npm install angularfire2 firebase --save
