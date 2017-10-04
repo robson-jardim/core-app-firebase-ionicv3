@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
 
 import { AuthService } from '../../providers/auth-service/auth-service';
@@ -10,11 +10,15 @@ import { AuthService } from '../../providers/auth-service/auth-service';
 })
 export class ProfilePage {
 
-  constructor(public navCtrl: NavController, private _auth: AuthService) {
-  }
+  constructor(public navCtrl: NavController,
+              private _auth: AuthService) {
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ProfilePage');
+    _auth.afAuth.authState.subscribe( user => {
+      if (!user) {
+        this.navCtrl.setRoot('LoginPage'  );
+      }
+    });
+
   }
 
   private signOut(): void {

@@ -16,7 +16,6 @@
 
   <form [formGroup]="loginForm" (submit)="signInUser()" novalidate>
     <ion-list>
-
       <ion-item>
         <ion-icon name="mail" item-start></ion-icon>
         <ion-input #email
@@ -56,12 +55,15 @@
 
     <button ion-button color="stable" block type="submit">Log in</button>
 
-    <button id="login-button2" (click)="registerUser()" ion-button clear color="positive" block href-inappbrowser="/signup">
+    <button (click)="registerUser()"
+            ion-button clear
+            color="positive" block
+            href-inappbrowser="/signup">
       Or create an account
     </button>
 
     <button ion-button block clear (click)="goToResetPassword()">
-      I forgot my password 🙁
+      I forgot my password
     </button>
 
   </form>

@@ -1,34 +1,33 @@
 <ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>New User</ion-title>
+  <ion-navbar color="primary">
+    <ion-title>
+      Create an Account
+    </ion-title>
   </ion-navbar>
 </ion-header>
 
 
 <ion-content padding>
+  <form [formGroup]="signupForm" (submit)="signupUser()" novalidate>
 
-  <form id="login-form1">
+    <ion-item>
+      <ion-label stacked>Email</ion-label>
+      <ion-input formControlName="email" type="email" placeholder="Your email address"
+        [class.invalid]="!signupForm.controls.email.valid && signupForm.controls.email.dirty"></ion-input>
+    </ion-item>
+    <ion-item class="error-message" *ngIf="!signupForm.controls.email.valid  && signupForm.controls.email.dirty">
+      <p>Please enter a valid email.</p>
+    </ion-item>
 
-    <div class="spacer" style="height:80px;" id="login-spacer1"></div>
+    <ion-item>
+      <ion-label stacked>Password</ion-label>
+      <ion-input formControlName="password" type="password"  placeholder="Your password"
+        [class.invalid]="!signupForm.controls.password.valid && signupForm.controls.password.dirty"></ion-input>
+    </ion-item>
+    <ion-item class="error-message" *ngIf="!signupForm.controls.password.valid  && signupForm.controls.password.dirty">
+      <p>Your password needs more than 6 characters.</p>
+    </ion-item>
 
-    <ion-list>
-      <ion-item>
-        <ion-icon name="mail" item-start></ion-icon>
-        <ion-input type="email" placeholder="e-mail" [(ngModel)]="this.email" name="email"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-icon name="lock" item-start></ion-icon>
-        <ion-input type="password" placeholder="password" [(ngModel)]="this.password" name="password"></ion-input>
-      </ion-item>
-    </ion-list>
-
-    <div class="spacer" style="height:40px;" id="login-spacer1"></div>
-
-    <button id="login-button1" (click)="registerUser()" ion-button color="stable" block>Create User</button>
-
-  </form>
-
-</ion-content>
+    <button ion-button block type="submit">
+      Create an Account
+    </button>

@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { IonicPage, NavController, LoadingController, Loading, AlertController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -16,7 +16,7 @@ import { ProfilePage } from '../../pages/profile/profile';
   templateUrl: 'login.html',
 })
 export class LoginPage {
-  @ViewChild('Nav') nav;
+
 
   public loginForm:FormGroup;
   public loading:Loading;
@@ -27,57 +27,31 @@ export class LoginPage {
               public alertCtrl: AlertController,
               public loadingCtrl: LoadingController) {
 
-    _auth.afAuth.authState.subscribe( user => {
-      if (user) {
-        this.navCtrl.setRoot('ProfilePage'  );
-      }
-    });
-
+    //Set form validations
     this.loginForm = formBuilder.group({
-      email: ['', Validators.compose([Validators.required,
-    EmailValidator.isValid])],
-      password: ['', Validators.compose([Validators.minLength(6),
-    Validators.required])]
-
-});
-
+      email:    ['', Validators.compose([Validators.required, EmailValidator.isValid])],
+      password: ['', Validators.compose([Validators.required, Validators.minLength(6)])]
+    });
   }
 
-  goToResetPassword(){
-    this.navCtrl.push('HomePage');
-  }
+  //Login user
+  private signInUser(goPage?: string): void {
 
+    if (!goPage) {
+      goPage = 'HomePage'
+    }
 
-  signInWithFacebook(): void {
-    this._auth.signInWithFacebook()
-      .then(() => this.onSignInSuccess());
-  }
-
-  private onSignInSuccess(): void {
-    console.log("Facebook display name ",this._auth.displayName());
-  }
-
-  private registerUser(): void {
-     this.navCtrl.push('RegisterUserPage');
-  }
-
-  private signInUser(): void {
     if (!this.loginForm.valid){
         console.log(this.loginForm.value);
       } else {
         this._auth.signInUser(this.loginForm.value.email, this.loginForm.value.password)
         .then( authData => {
-          this.navCtrl.setRoot('HomePage');
+          this.navCtrl.setRoot(goPage);
         }, error => {
           this.loading.dismiss().then( () => {
             let alert = this.alertCtrl.create({
               message: error.message,
-              buttons: [
-                {
-                  text: "Ok",
-                  role: 'cancel'
-                }
-              ]
+              buttons: [{text: "Ok", role: 'cancel'}]
             });
             alert.present();
           });
@@ -89,5 +63,25 @@ export class LoginPage {
         this.loading.present();
       }
   }
+
+  goToResetPassword(){
+    this.navCtrl.push('ResetPasswordPage');
+  }
+
+  registerUser() {
+    this.navCtrl.push('RegisterUserPage');
+  }
+
+  signInWithFacebook(): void {
+    this._auth.signInWithFacebook()
+      .then(() => this.onSignInSuccess());
+  }
+
+  private onSignInSuccess(): void {
+    console.log("Facebook display name ",this._auth.displayName());
+  }
+
+
+
 
 }
